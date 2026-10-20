@@ -1,6 +1,6 @@
 # Conference programme: interactive, searchable
 
-Created by the Akfa Medline team.
+This interactive programme was prepared by the Akfa Medline orthopedic team. The conference programme itself was created by the organisers (Ministry of Health of the Republic of Uzbekistan; Republican Specialized Scientific and Practical Medical Center of Traumatology and Orthopedics; Association of Traumatologists and Orthopedists).
 
 Static, dependency-free programme for the *Scientific and Practical Conference of Traumatologists and Orthopedists of Uzbekistan* (Tashkent, 24 October 2026).
 
