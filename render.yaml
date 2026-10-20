@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: conference-programme
+    runtime: static
+    branch: main
+    buildCommand: echo "No build step - static files"
+    staticPublishPath: ./
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
