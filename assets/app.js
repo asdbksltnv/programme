@@ -214,6 +214,13 @@
   }
 
   /* ------------------------------------------------------------------ icons */
+  var TABICON = {
+    programme: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+    overview: '<rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/>',
+    speakers: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
+    saved: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/>'
+  };
   var ICON = {
     star: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>',
     link: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>',
@@ -242,7 +249,7 @@
     var context = ctx ? '<p class="orgs">' + hallPill(t.hall) + ' ' + esc(sessionLabel(t.session) + (sessionLabel(t.session) ? ' · ' : '') + t.session.title[S.lang]) + '</p>' : '';
     return '<article class="talk' + (live ? ' live' : '') + (conf ? ' conflict' : '') + '" id="t-' + t.id + '" data-id="' + t.id + '">' +
       '<div class="when"><strong>' + t.start + '</strong><span>– ' + t.end + '</span><span class="no">#' + t.n + '</span></div>' +
-      '<div><h3 class="title">' + hl(t.title[S.lang]) + '</h3>' + context +
+      '<div class="body"><h3 class="title">' + hl(t.title[S.lang]) + '</h3>' + context +
       '<p class="authors">' + authors + '</p><p class="orgs">' + orgs + '</p>' + (flags ? '<div class="flags">' + flags + '</div>' : '') + '</div>' +
       '<div class="act">' +
       '<button type="button" class="ib" data-save="' + t.id + '" aria-pressed="' + saved + '" aria-label="' + esc(saved ? l.unsave : l.save) + '" title="' + esc(saved ? l.unsave : l.save) + '">' + ICON.star + '</button>' +
@@ -337,9 +344,14 @@
     });
     var open = sessionById.open, close = sessionById.close;
     setStatus('');
-    return '<p class="mods" style="margin:0 0 10px"><b>' + esc(l.opening) + ' ' + open.start + ':</b> ' + esc(open.lines[0].text[S.lang]) + '</p>' +
-      '<div class="tt-wrap"><div class="tt"><div></div>' + hh + '<div class="tt-axis" style="--th:' + H + 'px">' + axis + '</div>' + cols + '</div></div>' +
-      '<p class="mods" style="margin:10px 0 0"><b>' + esc(l.closing) + ' ' + close.start + ':</b> ' + esc(close.title[S.lang]) + '</p>';
+    var agenda = sessions.slice().sort(function (a, b) { return a.sMin - b.sMin || a.hall - b.hall; }).map(function (s) {
+      var lab = sessionLabel(s), click = s.kind === 'plenary' || s.kind === 'breakout', el = click ? 'button' : 'div';
+      return '<' + el + (click ? ' type="button" data-session="' + s.id + '"' : '') + ' class="tl ' + s.kind + '" style="--hc:' + hallColor(s.hall) + '">' +
+        '<b>' + s.start + '–' + s.end + '</b><span class="tl-top">' + hallPill(s.hall) + (lab ? '<em>' + esc(lab) + '</em>' : '') + '</span><span class="tl-title">' + esc(s.title[S.lang]) + '</span></' + el + '>';
+    }).join('');
+    return '<div class="tt-list">' + agenda + '</div><p class="mods desk" style="margin:0 0 10px"><b>' + esc(l.opening) + ' ' + open.start + ':</b> ' + esc(open.lines[0].text[S.lang]) + '</p>' +
+      '<div class="tt-wrap desk"><div class="tt"><div></div>' + hh + '<div class="tt-axis" style="--th:' + H + 'px">' + axis + '</div>' + cols + '</div></div>' +
+      '<p class="mods desk" style="margin:10px 0 0"><b>' + esc(l.closing) + ' ' + close.start + ':</b> ' + esc(close.title[S.lang]) + '</p>';
   }
 
   function avatar(sp) {
@@ -384,7 +396,8 @@
     var l = T(), n = Object.keys(S.saved).length;
     var items = [['programme', l.tabProgramme], ['overview', l.tabOverview], ['speakers', l.tabSpeakers], ['saved', l.tabSaved], ['info', l.tabInfo]];
     $('#tabs').innerHTML = items.map(function (it) {
-      return '<button type="button" class="tab" data-view="' + it[0] + '"' + (S.view === it[0] ? ' aria-current="page"' : '') + '>' + esc(it[1]) +
+      return '<button type="button" class="tab" data-view="' + it[0] + '"' + (S.view === it[0] ? ' aria-current="page"' : '') + '>' +
+        '<svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + TABICON[it[0]] + '</svg><span class="lbl">' + esc(it[1]) + '</span>' +
         (it[0] === 'saved' ? '<span class="badge" id="savedBadge"' + (n ? '' : ' hidden') + '>' + n + '</span>' : '') + '</button>';
     }).join('');
   }
@@ -394,6 +407,7 @@
     var showSearch = v === 'programme' || v === 'speakers' || v === 'saved';
     $('.searchrow').hidden = !showSearch;
     $('#filters').hidden = !showSearch;
+    $('#toolbar').classList.toggle('bare', !showSearch);
     $('#q').placeholder = v === 'speakers' ? l.searchSpk : l.search;
     $('#searchLabel').textContent = l.search;
     $('#clearQ').setAttribute('aria-label', l.clear);
@@ -474,6 +488,10 @@
   function copyLink(id) {
     var url = location.href.split('#')[0] + '#' + new URLSearchParams({ talk: id, lang: S.lang }).toString();
     var done = function () { toast(T().copied); };
+    if (navigator.share && window.matchMedia('(pointer: coarse)').matches) {
+      navigator.share({ title: talkById[id].title[S.lang], url: url }).catch(function () { /* cancelled */ });
+      return;
+    }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { toast(T().copyFail); });
     else { try { var ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); done(); } catch (e) { toast(T().copyFail); } }
   }
@@ -540,8 +558,16 @@
     });
 
     $('#dlg').addEventListener('click', function (e) { if (e.target === this) this.close(); });
-    $('#q').addEventListener('input', function () { S.q = this.value; render(); });
-    $('#q').addEventListener('keydown', function (e) { if (e.key === 'Escape' && S.q) { S.q = ''; this.value = ''; render(); } });
+    var qTimer;
+    $('#q').addEventListener('input', function () {
+      S.q = this.value; $('#searchBox').classList.toggle('has-text', !!S.q);
+      clearTimeout(qTimer); qTimer = setTimeout(render, 110);           /* keeps typing smooth on slow phones */
+    });
+    $('#q').addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && S.q) { S.q = ''; this.value = ''; render(); }
+      if (e.key === 'Enter') { clearTimeout(qTimer); render(); this.blur(); }   /* dismiss the on-screen keyboard */
+    });
+    $('#content').addEventListener('touchstart', function () { if (document.activeElement === $('#q')) $('#q').blur(); }, { passive: true });
     $('#clearQ').addEventListener('click', function () { S.q = ''; $('#q').value = ''; render(); $('#q').focus(); });
     $('#country').addEventListener('change', function () { S.cc = this.value; render(); });
     $('#themeBtn').addEventListener('click', function () {
@@ -550,7 +576,21 @@
       var next = dark ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); lsSet(STORE.theme, next);
     });
     $('#toTop').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-    window.addEventListener('scroll', function () { $('#toTop').classList.toggle('show', window.scrollY > 700); }, { passive: true });
+    var lastY = 0, ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY, tb = $('#toolbar');
+        $('#toTop').classList.toggle('show', y > 700);
+        /* phones: slide the search bar away while reading, bring it back on scroll up */
+        if (Math.abs(y - lastY) > 8) {
+          tb.classList.toggle('away', y > lastY && y > 260 && document.activeElement !== $('#q'));
+          lastY = y;
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+    $('#q').addEventListener('focus', function () { $('#toolbar').classList.remove('away'); });
     document.addEventListener('keydown', function (e) {
       if (e.key === '/' && !e.ctrlKey && !e.metaKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
         var sb = $('.searchrow'); if (!sb.hidden) { e.preventDefault(); $('#q').focus(); }
@@ -566,6 +606,10 @@
     loadSaved();
     readHash();
     $('#filters').innerHTML = '<div id="chips" style="display:contents"></div><span class="status" id="status" aria-live="polite"></span>';
+    $('#filters').insertBefore($('#country'), $('#status'));
+    if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+      window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () { /* offline support is optional */ }); });
+    }
     bind();
     renderAll();
     if (S.jump) { var j = S.jump; S.jump = ''; goTalk(j, true); }

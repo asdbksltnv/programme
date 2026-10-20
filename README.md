@@ -15,7 +15,9 @@ Static, dependency-free programme for the *Scientific and Practical Conference o
 - **My schedule**: star talks, get overlap warnings, export to calendar (`.ics`, Tashkent time).
 - "Happening now" highlight on the conference day (Tashkent time). Test with `?now=14:25`.
 - Shareable links: the URL hash stores language, search, filters and view; each talk has a copy-link button.
-- Dark mode, print stylesheet, keyboard shortcut `/` to search, mobile layout.
+- Dark mode, print stylesheet, keyboard shortcut `/` to search.
+- **Mobile-first details:** bottom tab bar within thumb reach, compact header, search bar that slides away while reading and returns on scroll up, 44px tap targets, bottom-sheet speaker profiles, agenda-style overview, native share sheet for talk links, keyboard dismisses on Enter or scroll.
+- **Works offline:** a service worker (`sw.js`) caches the site after the first visit, so the programme still opens with no signal at the venue. When online it always fetches the newest version first. The site can also be added to the home screen (`manifest.webmanifest`).
 
 ## Run / host
 
