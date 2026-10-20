@@ -1,5 +1,7 @@
 # Conference programme: interactive, searchable
 
+Created by the Akfa Medline team.
+
 Static, dependency-free programme for the *Scientific and Practical Conference of Traumatologists and Orthopedists of Uzbekistan* (Tashkent, 24 October 2026).
 
 **159 talks · 8 sessions · 4 halls · 65 speakers · English / Русский / Oʻzbekcha**

@@ -194,6 +194,7 @@ dialog::backdrop { background: rgba(5, 15, 25, .55); }
 .card a { color: var(--brand); }
 .card.wide { grid-column: 1 / -1; }
 
+footer .credit { color: var(--ink); font-weight: 600; margin-top: 14px; }
 footer { border-top: 1px solid var(--line); padding: 22px 0 40px; color: var(--muted); font-size: .85rem; }
 .totop { position: fixed; right: 16px; bottom: 16px; z-index: 40; display: none; box-shadow: var(--shadow); }
 .totop.show { display: grid; }

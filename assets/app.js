@@ -26,7 +26,7 @@
       aboutText: 'Based on the organisers’ published programme (final version). Talk titles are shown in the three published languages; speaker biographies appear in their original language. All times are Tashkent time (UTC+5).',
       saveNote: 'Saved talks are stored in this browser only.', theme: 'Toggle dark mode', top: 'Back to top', all: 'All', country: 'Country', lang: 'Language',
       footer: 'Scientific and Practical Conference of Traumatologists and Orthopedists of Uzbekistan · Tashkent, 24 October 2026',
-      views: 'Views', opening: 'Opening', closing: 'Closing', minShort: 'min', photoAlt: 'Portrait of '
+      credit: 'Programme website created by the Akfa Medline team.', views: 'Views', opening: 'Opening', closing: 'Closing', minShort: 'min', photoAlt: 'Portrait of '
     },
     ru: {
       skip: 'Перейти к содержимому', title: 'Программа · Конференция по травматологии и ортопедии 2026',
@@ -45,7 +45,7 @@
       aboutText: 'Составлено по опубликованной организаторами программе (финальный вариант). Названия докладов даны на трёх опубликованных языках; биографии спикеров — на языке оригинала. Время указано ташкентское (UTC+5).',
       saveNote: 'Сохранённые доклады хранятся только в этом браузере.', theme: 'Переключить тёмную тему', top: 'Наверх', all: 'Все', country: 'Страна', lang: 'Язык',
       footer: 'Научно-практическая конференция травматологов-ортопедов Узбекистана · Ташкент, 24 октября 2026',
-      views: 'Разделы', opening: 'Открытие', closing: 'Закрытие', minShort: 'мин', photoAlt: 'Портрет: '
+      credit: 'Сайт программы создан командой Akfa Medline.', views: 'Разделы', opening: 'Открытие', closing: 'Закрытие', minShort: 'мин', photoAlt: 'Портрет: '
     },
     uz: {
       skip: 'Asosiy qismga o‘tish', title: 'Dastur · Travmatologiya va ortopediya konferensiyasi 2026',
@@ -64,7 +64,7 @@
       aboutText: 'Tashkilotchilar e’lon qilgan dastur (yakuniy variant) asosida tuzilgan. Ma’ruza nomlari e’lon qilingan uch tilda, ma’ruzachilar haqidagi ma’lumot esa original tilda berilgan. Barcha vaqt Toshkent vaqti bilan (UTC+5).',
       saveNote: 'Saqlangan ma’ruzalar faqat shu brauzerda saqlanadi.', theme: 'Tungi rejimni almashtirish', top: 'Yuqoriga', all: 'Hammasi', country: 'Mamlakat', lang: 'Til',
       footer: 'O‘zbekiston travmatolog-ortopedlarining ilmiy-amaliy konferensiyasi · Toshkent, 2026-yil 24-oktabr',
-      views: 'Bo‘limlar', opening: 'Ochilish', closing: 'Yopilish', minShort: 'daq', photoAlt: 'Surat: '
+      credit: 'Dastur veb-sayti Akfa Medline jamoasi tomonidan tayyorlangan.', views: 'Bo‘limlar', opening: 'Ochilish', closing: 'Yopilish', minShort: 'daq', photoAlt: 'Surat: '
     }
   };
 
@@ -427,7 +427,7 @@
     $('#toTop').setAttribute('aria-label', l.top);
     $('#langSeg').setAttribute('aria-label', l.lang);
     $$('#langSeg button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === S.lang); });
-    $('#foot').innerHTML = '<p>' + esc(l.footer) + '</p><p>' + esc(l.aboutText) + '</p>';
+    $('#foot').innerHTML = '<p>' + esc(l.footer) + '</p><p>' + esc(l.aboutText) + '</p><p class="credit">' + esc(l.credit) + '</p>';
   }
 
   var lastLive = '';
