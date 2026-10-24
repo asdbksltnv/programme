@@ -4,7 +4,7 @@ This interactive programme was prepared by the Akfa Medline orthopedic team. The
 
 Static, dependency-free programme for the *Scientific and Practical Conference of Traumatologists and Orthopedists of Uzbekistan* (Tashkent, 24 October 2026).
 
-**159 talks · 8 sessions · 4 halls · 65 speakers · English / Русский / Oʻzbekcha**
+**173 talks · 8 sessions · 4 halls · 79 speakers · English / Русский / Oʻzbekcha**
 
 ## Features
 
@@ -45,11 +45,14 @@ Put portraits in `photos/<slug>.jpg`, where the slug is the speaker's programme 
 
 ## Notes on the source programme
 
-The three PDF versions disagree in a few places. This site uses:
+The three language versions of the final programme disagree in a few places. This site uses:
 
-- Session 2 (Hall 2), talks 12–17: the times from the Russian/Uzbek versions (14:50 … 15:40). The English version lists a jumbled sequence.
-- Session 7 (Hall 4), talk 9: 16:30–16:40 (English/Russian), not 16:30–16:35 (Uzbek).
-- Plenary session end 12:05 and lunch 12:05–13:00 (Russian version).
-- The bio of M. Asadullaev follows the speakers page (Vreden Center); his talk is listed under the Turner Center.
+- Session 1 (Hall 1), talks 20–37: the times from the Uzbek/Russian versions (ending 17:45). The English version runs 5 minutes earlier from talk 20 onward.
+- Session 7 (Hall 4), talks 12–13: the Uzbek/Russian order (Asilova, then Shukurov). The English version swaps them. Talk 19 is 17:30–17:35 (the Uzbek/Russian "17.25-17.35" is a typo).
+- Session 7, talk 11 (Valiev, Ismailov): Republican Research Center of Emergency Medicine (Russian/English), not the Uzbek version's RSSPMCTO.
+- Session 1, talk 37 (Mukhrumbaeva): the Russian version prints a different title (bone mineral density of the periprosthetic zone); the site follows the Uzbek/English title.
+- Session end times follow the last talk where the printed session header is shorter (Session 1 17:45, Session 2 15:25, Session 5 17:45, Session 6 15:15).
+- Plenary session end 12:05 and lunch 12:05–13:00 (Russian/English version).
+- M.S. Abdikalikov is spelled Абдукаликов on the speakers page; the talk spelling is used as the key.
 
 Please proof-read titles and affiliations against the final printed programme before publishing.
